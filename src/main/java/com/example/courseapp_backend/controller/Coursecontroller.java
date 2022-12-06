@@ -27,6 +27,11 @@ public class Coursecontroller {
 
         return "courses added successfully";
     }
+    @GetMapping("/view")
+    public String Viewcourses(){
+        return "view all courses";
+    }
+
 
 
 }
