@@ -1,14 +1,19 @@
 package com.example.courseapp_backend.controller;
 
+import com.example.courseapp_backend.dao.CourseDao;
 import com.example.courseapp_backend.model.Courses;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 
 public class Coursecontroller {
+    @Autowired
+    private CourseDao dao;
+
+    @CrossOrigin(origins = "*")
 
     @PostMapping("/")
     public String Welcomepage()
@@ -24,12 +29,15 @@ public class Coursecontroller {
         System.out.println(c.getVenue().toString());
         System.out.println(c.getDuration().toString());
         System.out.println(c.getDate().toString());
+        dao.save(c);
+
 
         return "courses added successfully";
     }
+    @CrossOrigin(origins = "*")
     @GetMapping("/view")
-    public String Viewcourses(){
-        return "view all courses";
+    public List <Courses>viewAll(){
+        return (List<Courses>) dao.findAll();
     }
 
 
